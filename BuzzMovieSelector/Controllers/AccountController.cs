@@ -9,6 +9,8 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using BuzzMovieSelector.Models;
+using BuzzMovieSelector.DataAccess;
+using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace BuzzMovieSelector.Controllers
 {
@@ -139,7 +141,10 @@ namespace BuzzMovieSelector.Controllers
         [AllowAnonymous]
         public ActionResult Register()
         {
-            return View();
+            var viewModel = new RegisterUserViewModel();
+            viewModel.RegisterViewModel = new RegisterViewModel();
+            viewModel.User = new User();
+            return View(viewModel);
         }
 
         //
@@ -147,14 +152,20 @@ namespace BuzzMovieSelector.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Register(RegisterViewModel model)
+        public async Task<ActionResult> Register(RegisterUserViewModel viewModel)
         {
             if (ModelState.IsValid)
             {
+                var model = viewModel.RegisterViewModel;
                 var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
+                    var RoleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(new ApplicationDbContext()));
+                    UserManager.AddToRole(user.Id, "User");
+                    var movieUser = viewModel.User;
+                    movieUser.Email = model.Email;
+                    BuzzMovieSelectorRepository.addUser(movieUser);
                     await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
                     
                     // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
@@ -169,7 +180,7 @@ namespace BuzzMovieSelector.Controllers
             }
 
             // If we got this far, something failed, redisplay form
-            return View(model);
+            return View(viewModel);
         }
 
         //

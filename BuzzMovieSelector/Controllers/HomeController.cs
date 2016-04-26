@@ -10,7 +10,7 @@ namespace BuzzMovieSelector.Controllers
     {
         public ActionResult Index()
         {
-            return View();
+            return RedirectToAction("Index", "Movie");
         }
 
         public ActionResult About()
