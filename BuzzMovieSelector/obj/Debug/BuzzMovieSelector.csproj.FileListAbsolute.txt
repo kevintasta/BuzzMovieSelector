@@ -67,3 +67,6 @@ c:\users\yuanhan\documents\visual studio 2015\Projects\BuzzMovieSelector\BuzzMov
 c:\users\yuanhan\documents\visual studio 2015\Projects\BuzzMovieSelector\BuzzMovieSelector\obj\Debug\BuzzMovieSelector.csprojResolveAssemblyReference.cache
 c:\users\yuanhan\documents\visual studio 2015\Projects\BuzzMovieSelector\BuzzMovieSelector\obj\Debug\BuzzMovieSelector.dll
 c:\users\yuanhan\documents\visual studio 2015\Projects\BuzzMovieSelector\BuzzMovieSelector\obj\Debug\BuzzMovieSelector.pdb
+C:\Users\Yuanhan\Documents\Visual Studio 2015\Projects\BuzzMovieSelector\BuzzMovieSelector\bin\RestSharp.dll
+C:\Users\Yuanhan\Documents\Visual Studio 2015\Projects\BuzzMovieSelector\BuzzMovieSelector\bin\RottenTomatoes.Api.dll
+C:\Users\Yuanhan\Documents\Visual Studio 2015\Projects\BuzzMovieSelector\BuzzMovieSelector\bin\RestSharp.xml

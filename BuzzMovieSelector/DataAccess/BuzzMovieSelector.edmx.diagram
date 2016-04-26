@@ -5,11 +5,11 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="84fa9a36a37d4fe5b33b6f614727ecb6" Name="Diagram1">
-        <EntityTypeShape EntityType="BuzzMovieSelectorModel.Movie" Width="1.5" PointX="0.75" PointY="1.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="BuzzMovieSelectorModel.Rating" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
-        <EntityTypeShape EntityType="BuzzMovieSelectorModel.User" Width="1.5" PointX="0.75" PointY="4.875" IsExpanded="true" />
-        <AssociationConnector Association="BuzzMovieSelectorModel.FK_Rating_ToMovie" ManuallyRouted="false" />
-        <AssociationConnector Association="BuzzMovieSelectorModel.FK_Rating_ToUser" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="BuzzMovieSelectorModel.Movie" Width="1.5" PointX="0.75" PointY="5.375" />
+        <EntityTypeShape EntityType="BuzzMovieSelectorModel.Rating" Width="1.5" PointX="3" PointY="1" />
+        <EntityTypeShape EntityType="BuzzMovieSelectorModel.User" Width="1.5" PointX="0.75" PointY="1" />
+        <AssociationConnector Association="BuzzMovieSelectorModel.FK_Rating_ToMovie" />
+        <AssociationConnector Association="BuzzMovieSelectorModel.FK_Rating_ToUser" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

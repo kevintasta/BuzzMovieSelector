@@ -4,7 +4,7 @@
     <Key>
       <PropertyRef Name="MovieId" />
     </Key>
-    <Property Name="MovieId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="MovieId" Type="int" Nullable="false" />
     <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
     <Property Name="Description" Type="nvarchar(max)" />
   </EntityType>

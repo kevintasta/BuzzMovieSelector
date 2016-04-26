@@ -4,33 +4,33 @@
     <EntitySetMapping Name="Movies">
       <EntityTypeMapping TypeName="BuzzMovieSelectorModel.Movie">
         <MappingFragment StoreEntitySet="Movie">
-          <ScalarProperty Name="MovieId" ColumnName="MovieId" />
-          <ScalarProperty Name="Name" ColumnName="Name" />
           <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="MovieId" ColumnName="MovieId" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="Ratings">
       <EntityTypeMapping TypeName="BuzzMovieSelectorModel.Rating">
         <MappingFragment StoreEntitySet="Rating">
-          <ScalarProperty Name="RatingId" ColumnName="RatingId" />
-          <ScalarProperty Name="RatingValue" ColumnName="RatingValue" />
-          <ScalarProperty Name="Major" ColumnName="Major" />
-          <ScalarProperty Name="UserId" ColumnName="UserId" />
           <ScalarProperty Name="MovieId" ColumnName="MovieId" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="Major" ColumnName="Major" />
+          <ScalarProperty Name="RatingValue" ColumnName="RatingValue" />
+          <ScalarProperty Name="RatingId" ColumnName="RatingId" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="Users">
       <EntityTypeMapping TypeName="BuzzMovieSelectorModel.User">
         <MappingFragment StoreEntitySet="User">
-          <ScalarProperty Name="UserId" ColumnName="UserId" />
-          <ScalarProperty Name="Email" ColumnName="Email" />
-          <ScalarProperty Name="FirstName" ColumnName="FirstName" />
-          <ScalarProperty Name="LastName" ColumnName="LastName" />
-          <ScalarProperty Name="Major" ColumnName="Major" />
-          <ScalarProperty Name="IsBanned" ColumnName="IsBanned" />
           <ScalarProperty Name="IsLocked" ColumnName="IsLocked" />
+          <ScalarProperty Name="IsBanned" ColumnName="IsBanned" />
+          <ScalarProperty Name="Major" ColumnName="Major" />
+          <ScalarProperty Name="LastName" ColumnName="LastName" />
+          <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
