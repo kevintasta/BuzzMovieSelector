@@ -102,6 +102,16 @@ namespace BuzzMovieSelector.DataAccess
             }
         }
 
+        public static IList<Rating> getAllRatingsForUser(string email)
+        {
+            using (var context = new BuzzMovieSelectorEntities())
+            {
+                var user = getUserProfile(email);
+                var userID = user.UserId;
+                return context.Ratings.Include(r => r.Movie).Where(r => r.UserId.Equals(userID)).ToList();
+            }
+        }
+
         public static void processRating(RateMovieViewModel viewModel, string email)
         {
             using (var context = new BuzzMovieSelectorEntities())
@@ -126,12 +136,6 @@ namespace BuzzMovieSelector.DataAccess
                 }
                 context.SaveChanges();
             }
-        }
-
-        public static double getMajorRaingForMovie(int movieID, string email)
-        {
-            var major = getMajorOfUser(email);
-            return getMajorRatingForMovie(movieID, major);
         }
 
         public static double getMajorRatingForMovie(int movieID, string major)
@@ -191,7 +195,14 @@ namespace BuzzMovieSelector.DataAccess
         }
         #endregion
 
-
+        #region User Methods
+        public static User getUserProfile(string email)
+        {
+            using (var context = new BuzzMovieSelectorEntities())
+            {
+                return context.Users.FirstOrDefault(u => u.Email.Equals(email));
+            }
+        }
 
         public static void addUser(User user)
         {
@@ -210,8 +221,19 @@ namespace BuzzMovieSelector.DataAccess
             }
         }
 
-
-
+        public static void updateUserInformation(User user)
+        {
+            using (var context = new BuzzMovieSelectorEntities())
+            {
+                var dbUser = context.Users.FirstOrDefault(u => u.UserId.Equals(user.UserId));
+                dbUser.FirstName = user.FirstName;
+                dbUser.LastName = user.LastName;
+                dbUser.Major = user.Major;
+                context.Entry(dbUser).State = EntityState.Modified;
+                context.SaveChanges();
+            }
+        }
+        #endregion
 
     }
 }

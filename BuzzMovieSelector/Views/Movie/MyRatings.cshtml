@@ -1,0 +1,29 @@
+﻿@model IList<BuzzMovieSelector.DataAccess.Rating>
+@{
+    ViewBag.Title = "MyRatings";
+}
+
+<h2>My Ratings</h2>
+@Html.ActionLink("Back to Dashboard", "Index")
+<div class="container">
+    <div class="row">
+        <div class="col-md-6">
+            <h3>Movie Name</h3>
+        </div>
+        <div class="col-md-6">
+            <h3>My Rating</h3>
+        </div>
+    </div>
+    @foreach (var rating in Model)
+    {
+        <div class="row">
+            <div class="col-md-6">
+                @Html.ActionLink(rating.Movie.Name, "RateMovie", new { movieID = rating.MovieId })
+            </div>
+            <div class="col-md-6">
+                @Html.DisplayFor(x => rating.RatingValue)
+            </div>
+        </div>
+    }
+</div>
+

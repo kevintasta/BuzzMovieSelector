@@ -52,7 +52,8 @@ namespace BuzzMovieSelector.Controllers
                 rateViewModel.UserRating = rating.RatingValue;
             }
             rateViewModel.Movie = dbMovie;
-            rateViewModel.MajorRating = BuzzMovieSelectorRepository.getMajorRatingForMovie(movieID, User.Identity.Name);
+            rateViewModel.MajorRating = BuzzMovieSelectorRepository.getMajorRatingForMovie(movieID,
+                BuzzMovieSelectorRepository.getMajorOfUser(User.Identity.Name));
             return View(rateViewModel);
         }
 
@@ -82,8 +83,26 @@ namespace BuzzMovieSelector.Controllers
                 viewModel = new RecommendViewModel();
                 viewModel.Movie = null;
                 viewModel.Major = BuzzMovieSelectorRepository.getMajorOfUser(User.Identity.Name);
-            }  
+            }
             return View(viewModel);
+        }
+
+        public ActionResult EditProfile()
+        {
+            return View(BuzzMovieSelectorRepository.getUserProfile(User.Identity.Name));
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult EditProfile(User user)
+        {
+            BuzzMovieSelectorRepository.updateUserInformation(user);
+            return RedirectToAction("EditProfile");
+        }
+
+        public ActionResult MyRatings()
+        {
+            return View(BuzzMovieSelectorRepository.getAllRatingsForUser(User.Identity.Name));
         }
     }
 }

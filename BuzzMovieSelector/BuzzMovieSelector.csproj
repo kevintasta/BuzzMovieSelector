@@ -308,6 +308,8 @@
     <Content Include="Views\Admin\Index.cshtml" />
     <Content Include="Views\Admin\ManageUsers.cshtml" />
     <Content Include="Views\Ban\Index.cshtml" />
+    <Content Include="Views\Movie\EditProfile.cshtml" />
+    <Content Include="Views\Movie\MyRatings.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
