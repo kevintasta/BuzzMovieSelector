@@ -4,36 +4,59 @@
 }
 
 <h2>Rate @Model.Movie.Name</h2>
-
-<p>
-    @Html.DisplayFor(x => Model.Movie.Description)
-</p>
-
-
-@using (Html.BeginForm())
-{
-    @Html.AntiForgeryToken()
-    @Html.HiddenFor(x => Model.Movie.MovieId)
-    <div class="form-horizontal">
-        <div class="form-group row">
-            <div class="col-md-2">
-                @Html.Label("Input Your Rating")
-                <br />
-                @if (Model.UserRating == 0)
-                {
-                    <p>You don't have a current rating yet</p>
-                } else
-                {
-                    <p>Your current rating is @Model.UserRating</p>
-                }
-            </div>
-            <div class="col-md-10">
-                @Html.EditorFor(x => Model.UserRating, new { htmlAttributes = new { @class = "form-control", min = "1", max = "5" } })
-            </div>
-        </div>
-        <div class="col-md-2 form-group">
-            <input type="submit" value="Rate" class="btn btn-default" />
-        </div>
+<br />
+<div class="container">
+    <div class="row">
+        <h4>Synopsis</h4>
+        <p>
+            @Html.DisplayFor(x => Model.Movie.Description)
+        </p>
     </div>
+    <div class="row">
+        @if (Model.MajorRating == 0)
+        {
+            <h2>No other rating yet for your current major</h2>
+        }
+        else
+        {
+            <h2>Current rating for your major is @Model.MajorRating</h2>
+        }
 
-}
+    </div>
+    <br />
+    <br />
+
+    <div class="row">
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+            @Html.HiddenFor(x => Model.Movie.MovieId)
+            <div class="form-horizontal">
+                <div class="form-group row">
+                    <div class="col-md-2">
+                        @Html.Label("Input Your Rating")
+                        <br />
+                        @if (Model.UserRating == 0)
+                {
+                            <p>You don't have a current rating yet</p>
+                        }
+                        else
+                        {
+                            <p>Your current rating is @Model.UserRating</p>
+                        }
+                    </div>
+                    <div class="col-md-10">
+                        @Html.EditorFor(x => Model.UserRating, new { htmlAttributes = new { @class = "form-control", min = "1", max = "5" } })
+                    </div>
+                </div>
+                <div class="col-md-2 form-group">
+                    <input type="submit" value="Rate" class="btn btn-default" />
+                </div>
+            </div>
+
+        }
+    </div>
+    
+</div>
+<br />
+@Html.ActionLink("New Search", "SearchMovies")

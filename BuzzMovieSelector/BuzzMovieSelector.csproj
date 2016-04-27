@@ -299,6 +299,9 @@
     <Content Include="Views\Movie\SearchMovies.cshtml" />
     <Content Include="Views\Movie\MovieList.cshtml" />
     <Content Include="Views\Movie\RateMovie.cshtml" />
+    <Content Include="Views\Movie\DVD.cshtml" />
+    <Content Include="Views\Movie\InTheaters.cshtml" />
+    <Content Include="Views\Movie\Recommend.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

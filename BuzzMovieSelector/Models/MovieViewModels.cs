@@ -14,4 +14,12 @@ namespace BuzzMovieSelector.Models
         public string Major { get; set; }
         public double MajorRating { get; set; }
     }
+
+    public class RecommendViewModel
+    {
+        public Movie Movie { get; set; }
+        public double MajorRating { get; set; }
+        public int UserRating { get; set; }
+        public string Major { get; set; }
+    }
 }

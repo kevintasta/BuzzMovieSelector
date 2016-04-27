@@ -1,0 +1,44 @@
+﻿@model BuzzMovieSelector.Models.RecommendViewModel
+@{
+    ViewBag.Title = "Recommend";
+}
+
+<h2>Top Movie for @Model.Major:</h2>
+<br />
+
+@if (Model.Movie == null)
+{
+    <h4>No Ratings Yet From @Model.Major Majors</h4>
+}
+else
+{
+    <h2>@Model.Movie.Name</h2>
+    <br />
+    <div class="container">
+        <div class="row">
+            <h4>Synopsis</h4>
+            <p>
+                @Html.DisplayFor(x => Model.Movie.Description)
+            </p>
+        </div>
+        <div class="row">
+            <h4>Overall rating in major: @Model.MajorRating</h4>
+
+        </div>
+        <div class="row">
+            @if (Model.UserRating == 0)
+            {
+                <h4>You have not rated this movie yet</h4>
+            }
+            else
+            {
+                <h4>Your rating: @Model.UserRating</h4>
+            }
+
+        </div>
+    </div>
+}
+<br />
+@Html.ActionLink("Back to Dashboard", "Index")
+
+

@@ -1,0 +1,22 @@
+﻿@model IList<RottenTomatoes.Api.Movie>
+@{
+    ViewBag.Title = "In Theaters Now";
+}
+
+<h2>Movies in Theaters Now</h2>
+@Html.ActionLink("New Search", "SearchMovies")
+<table class="table">
+    <tr>
+        <th>
+            Pick a Movie to Rate
+        </th>
+    </tr>
+    @foreach (var movie in Model)
+    {
+        <tr>
+            <td>
+                @Html.ActionLink(movie.Title, "RateMovie", new { movieID = movie.Id })
+            </td>
+        </tr>
+    }
+</table>

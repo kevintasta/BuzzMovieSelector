@@ -17,6 +17,10 @@ namespace BuzzMovieSelector.DataAccess
         {
             var client = new RottenTomatoesRestClient(apiKey);
             var movies = client.MoviesSearch(query);
+            if (movies == null)
+            {
+                return new List<RottenTomatoes.Api.Movie>();
+            }
             return movies.Movies;
         }
 
@@ -24,6 +28,10 @@ namespace BuzzMovieSelector.DataAccess
         {
             var client = new RottenTomatoesRestClient(apiKey);
             var movies = client.NewReleaseDvds();
+            if (movies.Movies == null)
+            {
+                return new List<RottenTomatoes.Api.Movie>();
+            }
             return movies.Movies;
         }
 
@@ -31,6 +39,10 @@ namespace BuzzMovieSelector.DataAccess
         {
             var client = new RottenTomatoesRestClient(apiKey);
             var movies = client.InTheatersMovies();
+            if (movies.Movies == null)
+            {
+                return new List<RottenTomatoes.Api.Movie>();
+            }
             return movies.Movies;
         }
 
@@ -115,6 +127,68 @@ namespace BuzzMovieSelector.DataAccess
                 context.SaveChanges();
             }
         }
+
+        public static double getMajorRaingForMovie(int movieID, string email)
+        {
+            var major = getMajorOfUser(email);
+            return getMajorRatingForMovie(movieID, major);
+        }
+
+        public static double getMajorRatingForMovie(int movieID, string major)
+        {
+            using (var context = new BuzzMovieSelectorEntities())
+            {
+                var majorRatings = context.Ratings.Where(r => r.Major.Equals(major) && r.MovieId.Equals(movieID));
+                var count = majorRatings.Count();
+                if (count == 0)
+                {
+                    return 0.0;
+                }
+                var total = 0.0;
+                foreach (var rating in majorRatings)
+                {
+                    total += rating.RatingValue;
+                }
+                return total / count;
+            }
+        }
+
+        public static RecommendViewModel getRecommendationForMajor(string email)
+        {
+            using (var context = new BuzzMovieSelectorEntities())
+            {
+                var major = getMajorOfUser(email);
+                var ratings = context.Ratings.Where(r => r.Major.Equals(major)).Select(x => x.Movie).Distinct();
+                if (ratings == null || ratings.Count() == 0)
+                {
+                    return null;
+                }
+                var max = 0.0;
+                var maxMovieID = 1;
+                foreach (var element in ratings)
+                {
+                    var majorRating = getMajorRatingForMovie(element.MovieId, major);
+                    if (majorRating > max)
+                    {
+                        max = majorRating;
+                        maxMovieID = element.MovieId;
+                    }
+                }
+                var viewModel = new RecommendViewModel();
+                viewModel.MajorRating = max;
+                var userRating = getUserRatingForMovie(email, maxMovieID);
+                if (userRating != null)
+                {
+                    viewModel.UserRating = getUserRatingForMovie(email, maxMovieID).RatingValue;
+                } else
+                {
+                    viewModel.UserRating = 0;
+                }
+                viewModel.Major = major;
+                viewModel.Movie = getDatabaseMovieById(maxMovieID);
+                return viewModel;
+            }
+        }
         #endregion
 
 
@@ -125,6 +199,14 @@ namespace BuzzMovieSelector.DataAccess
             {
                 context.Users.Add(user);
                 context.SaveChanges();
+            }
+        }
+
+        public static string getMajorOfUser(string email)
+        {
+            using (var context = new BuzzMovieSelectorEntities())
+            {
+                return context.Users.FirstOrDefault(u => u.Email.Equals(email)).Major;
             }
         }
 

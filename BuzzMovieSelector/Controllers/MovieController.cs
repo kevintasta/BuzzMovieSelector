@@ -52,6 +52,7 @@ namespace BuzzMovieSelector.Controllers
                 rateViewModel.UserRating = rating.RatingValue;
             }
             rateViewModel.Movie = dbMovie;
+            rateViewModel.MajorRating = BuzzMovieSelectorRepository.getMajorRatingForMovie(movieID, User.Identity.Name);
             return View(rateViewModel);
         }
 
@@ -61,6 +62,28 @@ namespace BuzzMovieSelector.Controllers
         {
             BuzzMovieSelectorRepository.processRating(viewModel, User.Identity.Name);
             return RedirectToAction("RateMovie", new { movieID = viewModel.Movie.MovieId });
+        }
+
+        public ActionResult DVD()
+        {
+            return View(BuzzMovieSelectorRepository.getNewDvdReleases());
+        }
+
+        public ActionResult InTheaters()
+        {
+            return View(BuzzMovieSelectorRepository.getNewInTheaters());
+        }
+
+        public ActionResult Recommend()
+        {
+            var viewModel = BuzzMovieSelectorRepository.getRecommendationForMajor(User.Identity.Name);
+            if (viewModel == null)
+            {
+                viewModel = new RecommendViewModel();
+                viewModel.Movie = null;
+                viewModel.Major = BuzzMovieSelectorRepository.getMajorOfUser(User.Identity.Name);
+            }  
+            return View(viewModel);
         }
     }
 }
