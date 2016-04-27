@@ -14,7 +14,7 @@ namespace BuzzMovieSelector.DataAccess
         {
             using (var context = new ApplicationDbContext())
             {
-                return context.Users.ToList();
+                return context.Users.Include(u => u.Roles).ToList();
             }
         }
 
@@ -30,13 +30,14 @@ namespace BuzzMovieSelector.DataAccess
         {
             using (var context = new ApplicationDbContext())
             {
-                var user = getUserFromID(id);
+                var user = context.Users.Include(u => u.Roles).FirstOrDefault(u => u.Id.Equals(id));
                 var banRole = context.Roles.FirstOrDefault(x => x.Name.Equals("User"));
                 var matchedRole = user.Roles.FirstOrDefault(r => r.RoleId.Equals(banRole.Id));
                 user.Roles.Remove(matchedRole);
                 banRole = context.Roles.FirstOrDefault(x => x.Name.Equals("Banned"));
                 var identityRole = new IdentityUserRole();
                 identityRole.RoleId = banRole.Id;
+                identityRole.UserId = user.Id;
                 user.Roles.Add(identityRole);
                 context.SaveChanges();
             }
@@ -46,13 +47,14 @@ namespace BuzzMovieSelector.DataAccess
         {
             using (var context = new ApplicationDbContext())
             {
-                var user = getUserFromID(id);
+                var user = context.Users.Include(u => u.Roles).FirstOrDefault(u => u.Id.Equals(id));
                 var banRole = context.Roles.FirstOrDefault(x => x.Name.Equals("Banned"));
                 var matchedRole = user.Roles.FirstOrDefault(r => r.RoleId.Equals(banRole.Id));
                 user.Roles.Remove(matchedRole);
                 banRole = context.Roles.FirstOrDefault(x => x.Name.Equals("User"));
                 var identityRole = new IdentityUserRole();
                 identityRole.RoleId = banRole.Id;
+                identityRole.UserId = user.Id;
                 user.Roles.Add(identityRole);
                 context.SaveChanges();
             }

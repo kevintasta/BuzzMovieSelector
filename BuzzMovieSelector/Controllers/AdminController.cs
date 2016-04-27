@@ -20,5 +20,17 @@ namespace BuzzMovieSelector.Controllers
         {
             return View(AdminRepository.getUsers());
         }
+
+        public ActionResult BanUser(string userID)
+        {
+            AdminRepository.banUser(userID);
+            return RedirectToAction("ManageUsers");
+        }
+
+        public ActionResult UnbanUser(string userID)
+        {
+            AdminRepository.unbanUser(userID);
+            return RedirectToAction("ManageUsers");
+        }
     }
 }

@@ -59,6 +59,18 @@ namespace BuzzMovieSelector.Controllers
         [AllowAnonymous]
         public ActionResult Login(string returnUrl)
         {
+            if (User.IsInRole("User"))
+            {
+                return RedirectToAction("Index", "Movie");
+            }
+            else if (User.IsInRole("Admin"))
+            {
+                return RedirectToAction("Index", "Admin");
+            }
+            else if (User.IsInRole("Banned"))
+            {
+                return RedirectToAction("Index", "Ban");
+            }
             ViewBag.ReturnUrl = returnUrl;
             return View();
         }
@@ -72,7 +84,7 @@ namespace BuzzMovieSelector.Controllers
         {
             if (!ModelState.IsValid)
             {
-                return View(model);
+                return RedirectToAction("Index", "Home");
             }
 
             // This doesn't count login failures towards account lockout

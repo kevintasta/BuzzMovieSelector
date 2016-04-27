@@ -3,5 +3,30 @@
     ViewBag.Title = "ManageUsers";
 }
 
-<h2>ManageUsers</h2>
+<h2>Manage Users</h2>
 
+<table class="table">
+    <tr>
+        <th>
+            Email
+        </th>
+    </tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(x => item.Email)
+            </td>
+            <td>
+                @if (item.Roles.Any(r => r.RoleId.Equals("37d13937-f5ea-473a-87cf-04dcd7e72d59\r\n")))
+                {
+                    @Html.ActionLink("Unban", "UnbanUser", new { userID = item.Id }, new { @class = "btn btn-link" })
+                }
+                else
+                {
+                    @Html.ActionLink("Ban", "BanUser", new { userID = item.Id }, new { @class = "btn btn-link" })
+                }
+            </td>
+        </tr>
+    }
+</table>

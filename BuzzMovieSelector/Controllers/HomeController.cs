@@ -10,7 +10,19 @@ namespace BuzzMovieSelector.Controllers
     {
         public ActionResult Index()
         {
-            return RedirectToAction("Index", "Movie");
+            if (User.IsInRole("User"))
+            {
+                return RedirectToAction("Index", "Movie");
+            }
+            else if (User.IsInRole("Admin"))
+            {
+                return RedirectToAction("Index", "Admin");
+            }
+            else if (User.IsInRole("Banned"))
+            {
+                return RedirectToAction("Index", "Ban");
+            }
+            return RedirectToAction("Login", "Account");
         }
 
         public ActionResult About()
